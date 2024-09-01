@@ -1,16 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const QuizQuestions = () => {
   const [questions, setQuestions] = useState([]); // Store all questions
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Keep track of the current question index
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
-
+  const [selected,setSelected]=useState('');
+ const navigate=useNavigate();
+  const handleselection=(option)=>{
+    setSelected(option)
+  }
   // Fetch all questions when the component mounts
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch('https://example.com/api/questions');
+        const response = await fetch('https://648435f7ee799e3216266192.mockapi.io/quiz', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+         
+        });
         if (!response.ok) {
           throw new Error('Failed to fetch questions');
         }
@@ -29,7 +40,7 @@ const QuizQuestions = () => {
   // Delete the current question
   const handleDelete = async (questionId) => {
     try {
-      const response = await fetch(`https://example.com/api/questions/${questionId}`, {
+      const response = await fetch(`https://648435f7ee799e3216266192.mockapi.io/quiz/${questionId}`, {
         method: 'DELETE',
       });
 
@@ -59,6 +70,10 @@ const QuizQuestions = () => {
       alert('No more questions');
     }
   };
+    //update function
+    const updatequest=()=>{
+      Navigate('/update')
+    }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -74,12 +89,21 @@ const QuizQuestions = () => {
         <strong>Question {currentQuestionIndex + 1}: </strong> {currentQuestion.questionText}
         <ul>
           {currentQuestion.options.map((option, index) => (
-            <li key={index}>{String.fromCharCode(97 + index)}: {option}</li>
+            <li key={index}  style={{
+              display: 'inline-block',
+              width: '48px',
+              padding: '8px',
+              margin: '4px',
+              backgroundColor: 'transparent',
+              cursor: 'pointer',
+              border: '1px solid #ccc'
+            }}>{String.fromCharCode(97 + index)}: {option}</li>
           ))}
         </ul>
 
         <button onClick={() => handleDelete(currentQuestion.id)}>Delete</button> {/* Delete the current question */}
         <button onClick={handleNextQuestion}>Next Question</button> {/* Go to the next question */}
+        <button onClick={updatequest}>update</button>
       </div>
     </div>
   );
