@@ -3,7 +3,7 @@ import Addquestion from './Addquestion';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Quiz from './Quiz';
 import Navbar from './Navbar';
-import Update from './Update';
+import UpdateForm from './UpdateForm';
 
 const App=()=>{
   return(
@@ -12,7 +12,7 @@ const App=()=>{
     <Routes>
       <Route path='/' element={<Quiz/>}/>
       <Route path='/addquestion' element={<Addquestion/>}/>
-      <Route path='/update' element={<Update/>}/>
+      <Route path='/update' element={<UpdateForm/>}/>
     </Routes>
     </BrowserRouter>
   )
