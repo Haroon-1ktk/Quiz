@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
 import Formcomponent from './Formcomponent';
 import { useNavigate } from 'react-router-dom';
+import './AddQuestion.css'; 
 
 const Addquestion = () => {
   const [showtext, setShowtext] = useState(true);
   const [options, setOptions] = useState(["", "", "", ""]);
   const [questionText, setQuestionText] = useState('');
   
-  const history=useNavigate();
- 
+  const history = useNavigate();
+
   const handleClick = () => {
     setShowtext(!showtext);
   };
 
-  
   const handleQuestionChange = (e) => {
     setQuestionText(e.target.value);
   };
 
-  
   const postQuizData = async (quizData) => {
     try {
       const response = await fetch('https://648435f7ee799e3216266192.mockapi.io/quiz', {
@@ -40,10 +39,9 @@ const Addquestion = () => {
       console.error('Error submitting quiz:', error);
       alert('Error submitting quiz. Please try again.');
     }
-   history('/');
+    history('/');
   };
 
- 
   const onSubmitquiz = async () => {
     if (questionText.trim() && options.every(option => option.trim())) {
       const quizData = {
@@ -57,53 +55,48 @@ const Addquestion = () => {
   };
 
   return (
-    <div>
-      <form action="" className="layout">
+    <div className="add-question-container">
+      <div className="question-section">
         {!showtext ? (
           <div>
-            <span
-              onClick={handleClick}
-              style={{ marginRight: "50px", fontSize: "20px", cursor: 'pointer' }}
-            >
-              -
-            </span>
-            <label htmlFor="addQuestion"></label>
+            <span onClick={handleClick} className="toggle-button">-</span>
             <textarea
               name="question"
               id="question"
               value={questionText}
               onChange={handleQuestionChange}
+              className="question-input"
             ></textarea>
           </div>
         ) : (
-          <span
-            onClick={handleClick}
-            style={{ marginRight: "50px", fontSize: "20px", cursor: 'pointer' }}
-          >
-            ?
-          </span>
+          <button onClick={handleClick} className="toggle-button">Add Question</button>
         )}
+      </div>
 
-        <div>
+      <div className="middle-section">
+        <div className="preview-section">
           <strong>Preview: </strong> {questionText} 
           <ul>
             {options.map((option, index) => (
-              <div className="optionspreview" key={index}>
+              <div className="options-preview" key={index}>
                 <span>{String.fromCharCode(97 + index)}:</span>
                 <span>{option}</span>
               </div>
             ))}
           </ul>
         </div>
+      </div>
 
+      <div className="right-section">
         <Formcomponent options={options} setOptions={setOptions} question={questionText} />
 
-        <button type="button" onClick={onSubmitquiz}>
+        <button className='add-btn' type="button" onClick={onSubmitquiz}>
           Submit Quiz
         </button>
-      </form>
+      </div>
     </div>
   );
 };
 
 export default Addquestion;
+

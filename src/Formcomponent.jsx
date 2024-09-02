@@ -9,7 +9,7 @@ const Formcomponent = ({ options, setOptions, question }) => {
   };
 
   return (
-    <div>
+    <div className='form-comp'>
       <h3>Options for: {question}</h3>
       {options.map((option, index) => (
         <label key={index} htmlFor="">

@@ -69,6 +69,23 @@ body{
     font-weight: bold;
     font-size: 2rem;
 }
+.form-comp{
+    display: flex;
+    flex-direction: column;
+   
+      
+}
+.form-comp input{
+    width: 100%;
+    padding: 8px;
+    height: 24px;
+    border-radius: 14px;
+    outline: none;
+    border: 1px solid gray;
+    font-size: medium;
+    font-weight: 500;
+}
+
 .form button{
     width: 380px;
     border-radius: 14px;
